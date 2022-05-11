@@ -1,6 +1,7 @@
+-- Try to call impatient but ignore if it isn't there
+pcall(require, "impatient")
+
 require("options")
 require("autocmds")
 require("plugins")
 require("mappings")
-
--- vim: ts=2 sts=2 sw=2 et

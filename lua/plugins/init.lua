@@ -5,18 +5,16 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
 end
 
-local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
-vim.api.nvim_create_autocmd(
-  "BufWritePost",
-  { command = "source <afile> | PackerCompile", group = packer_group, pattern = "init.lua" }
-)
+local packer = require("packer")
+packer.init({
+  display = {
+    open_fn = function()
+      return require("packer.util").float({ border = "rounded" })
+    end,
+  },
+})
 
-local present, impatient = pcall(require, "impatient")
-
-if present then
-  impatient.enable_profile()
-end
-
+-- Set up other plugins
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim") -- Package manager
   use("lewis6991/impatient.nvim") -- Improve startup time
@@ -45,13 +43,13 @@ require("packer").startup(function(use)
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   -- Additional textobjects for treesitter
-  use("nvim-treesitter/nvim-treesitter-textobjects")
+  use({ "nvim-treesitter/nvim-treesitter-textobjects", requires = "nvim-treesitter/nvim-treesitter" })
   use({
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
       local on_attach = require("plugins.utils").on_attach
-      local capabilities = require("plugins.utils").capabilities()
+      local capabilities = require("plugins.utils").capabilities
 
       -- Enable the following language servers
       local servers = { "clangd" }
@@ -142,7 +140,7 @@ require("packer").startup(function(use)
     ft = { "rust", "rs" },
     config = function()
       local on_attach = require("plugins.utils").on_attach
-      local capabilities = require("plugins.utils").capabilities()
+      local capabilities = require("plugins.utils").capabilities
 
       require("rust-tools").setup({
         tools = {
