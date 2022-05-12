@@ -29,6 +29,7 @@ require("packer").startup(function(use)
   -- UI to select things (files, grep results, open buffers...)
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+  use({ "nvim-telescope/telescope-file-browser.nvim" })
   use({
     "~/.config/nvim/onenord.nvim",
     config = function()
@@ -40,6 +41,13 @@ require("packer").startup(function(use)
     end,
   }) -- Theme inspired by Atom
   use("nvim-lualine/lualine.nvim") -- Fancier statusline
+  use({
+    "akinsho/bufferline.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("bufferline").setup()
+    end,
+  })
   use("kyazdani42/nvim-web-devicons") -- More icons
   -- Add indentation guides even on blank lines
   use({
@@ -233,7 +241,7 @@ require("packer").startup(function(use)
   })
   use({
     "petertriho/nvim-scrollbar",
-    requires = "rmehri01/onenord.nvim",
+    requires = "~/.config/nvim/onenord.nvim",
     config = function()
       local colors = require("onenord.colors").load()
 
@@ -416,6 +424,7 @@ require("telescope").setup({
 
 -- Enable telescope fzf native
 require("telescope").load_extension("fzf")
+require("telescope").load_extension("file_browser")
 require("telescope").load_extension("projects")
 
 -- Treesitter configuration
