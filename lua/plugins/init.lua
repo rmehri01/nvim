@@ -27,7 +27,7 @@ require("packer").startup(function(use)
     end,
   }) -- "gc" to comment visual regions/lines
   -- UI to select things (files, grep results, open buffers...)
-  use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
+  use({ "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" })
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
   use({ "nvim-telescope/telescope-file-browser.nvim" })
   use({
@@ -60,7 +60,7 @@ require("packer").startup(function(use)
     end,
   })
   -- Add git related info in the signs columns and popups
-  use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } })
+  use({ "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" })
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   -- Additional textobjects for treesitter
@@ -219,10 +219,7 @@ require("packer").startup(function(use)
   use({
     "TimUntersberger/neogit",
     cmd = "Neogit",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-    },
+    requires = "nvim-lua/plenary.nvim",
     config = function()
       require("neogit").setup({
         integrations = {
@@ -276,7 +273,7 @@ require("packer").startup(function(use)
   use({
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
-    requires = { { "nvim-lua/plenary.nvim" } },
+    requires = "nvim-lua/plenary.nvim",
     config = function()
       require("crates").setup()
     end,
@@ -313,7 +310,7 @@ require("packer").startup(function(use)
   use("rafamadriz/friendly-snippets")
   use({
     "goolord/alpha-nvim",
-    requires = { "kyazdani42/nvim-web-devicons" },
+    requires = "kyazdani42/nvim-web-devicons",
     config = function()
       local alpha = require("alpha")
       local dashboard = require("alpha.themes.dashboard")
@@ -394,6 +391,21 @@ require("packer").startup(function(use)
           require("null-ls").builtins.formatting.stylua,
         },
       })
+    end,
+  })
+  use({
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup()
+    end,
+  })
+  use({
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup()
     end,
   })
 end)
