@@ -1,0 +1,3 @@
+[submodule "onenord.nvim"]
+	path = onenord.nvim
+	url = https://github.com/rmehri01/onenord.nvim
