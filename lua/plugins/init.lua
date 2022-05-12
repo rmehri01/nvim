@@ -387,7 +387,7 @@ require("packer").startup(function(use)
   })
 end)
 
---Set statusbar
+-- Set statusbar
 require("lualine").setup({
   options = {
     theme = "onenord",
