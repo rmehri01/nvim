@@ -14,28 +14,21 @@ wk.setup({
 wk.register({
   ["<leader>"] = { "<cmd>Telescope find_files<CR>", "Find file" },
   ["."] = { "<cmd>Telescope file_browser<CR>", "Browse files" },
-  w = { "<cmd>w!<CR>", "Save" },
-  q = { "<cmd>q<CR>", "Quit" },
-  x = { "<cmd>bdelete<CR>", "Close buffer" },
+  n = { "<cmd>ene<cr>", "New file" },
+  w = { "<cmd>w!<cr>", "Save" },
+  q = { "<cmd>q<cr>", "Quit" },
+  x = { "<cmd>bdelete<cr>", "Close buffer" },
+  C = { "<cmd>Telescope find_files cwd=~/.config/nvim/<cr>", "Edit config" },
   b = {
     name = "Buffer",
     j = { "<cmd>BufferLinePick<cr>", "Jump to buffer" },
     f = { "<cmd>Telescope buffers<cr>", "Find buffer" },
     h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
-    l = {
-      "<cmd>BufferLineCloseRight<cr>",
-      "Close all to the right",
-    },
+    l = { "<cmd>BufferLineCloseRight<cr>", "Close all to the right" },
     s = {
       name = "Sort",
-      d = {
-        "<cmd>BufferLineSortByDirectory<cr>",
-        "Sort by directory",
-      },
-      e = {
-        "<cmd>BufferLineSortByExtension<cr>",
-        "Sort by extension",
-      },
+      d = { "<cmd>BufferLineSortByDirectory<cr>", "Sort by directory" },
+      e = { "<cmd>BufferLineSortByExtension<cr>", "Sort by extension" },
     },
   },
   p = {
@@ -59,10 +52,7 @@ wk.register({
     o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-    C = {
-      "<cmd>Telescope git_bcommits<cr>",
-      "Checkout commit for current file",
-    },
+    C = { "<cmd>Telescope git_bcommits<cr>", "Checkout commit for current file" },
     g = { "<cmd>Neogit<cr>", "Neogit" },
     d = {
       name = "Diffview",
@@ -86,13 +76,13 @@ wk.register({
     b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer" },
     c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
     h = { "<cmd>Telescope help_tags<cr>", "Help" },
-    M = { "<cmd>Telescope man_pages<cr>", "Man pages" },
+    p = { "<cmd>Telescope projects<CR>", "Projects" },
+    m = { "<cmd>Telescope man_pages<cr>", "Man pages" },
     r = { "<cmd>Telescope oldfiles<cr>", "Recent file" },
     t = { "<cmd>Telescope live_grep<cr>", "Text" },
     s = { "<cmd>Telescope grep_string<cr>", "String under cursor" },
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },
-    P = { "<cmd>Telescope projects<CR>", "Projects" },
   },
   t = {
     name = "Trouble",

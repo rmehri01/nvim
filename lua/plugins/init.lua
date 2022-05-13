@@ -233,7 +233,7 @@ require("packer").startup(function(use)
       })
     end,
   })
-  use({ "sindrets/diffview.nvim", cmd = "DiffviewOpen" })
+  use("sindrets/diffview.nvim")
 
   -- Add git related info in the signs columns and popups
   use({
