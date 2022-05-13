@@ -288,7 +288,13 @@ require("packer").startup(function(use)
     "akinsho/bufferline.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
-      require("bufferline").setup()
+      require("bufferline").setup({
+        options = {
+          diagnostics = "nvim_lsp",
+          show_close_icon = false,
+          always_show_bufferline = false,
+        },
+      })
     end,
   })
   use("kyazdani42/nvim-web-devicons") -- More icons

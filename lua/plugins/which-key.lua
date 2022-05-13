@@ -16,7 +16,7 @@ wk.register({
   ["."] = { "<cmd>Telescope file_browser<CR>", "Browse files" },
   w = { "<cmd>w!<CR>", "Save" },
   q = { "<cmd>q<CR>", "Quit" },
-  x = { "<cmd>BufferKill<CR>", "Close buffer" },
+  x = { "<cmd>bdelete<CR>", "Close buffer" },
   b = {
     name = "Buffer",
     j = { "<cmd>BufferLinePick<cr>", "Jump to buffer" },
