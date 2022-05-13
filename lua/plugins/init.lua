@@ -55,10 +55,9 @@ require("packer").startup(function(use)
   -- Manage terminal windows
   use({
     "akinsho/toggleterm.nvim",
-    cmd = "ToggleTerm",
     config = function()
       require("toggleterm").setup({
-        open_mapping = [[<c-t>]],
+        open_mapping = "<C-t>",
         direction = "float",
         float_opts = {
           border = "curved",
@@ -74,15 +73,7 @@ require("packer").startup(function(use)
     requires = "kyazdani42/nvim-web-devicons",
     tag = "nightly",
     config = function()
-      vim.g.nvim_tree_respect_buf_cwd = 1
-
-      require("nvim-tree").setup({
-        update_cwd = true,
-        update_focused_file = {
-          enable = true,
-          update_cwd = true,
-        },
-      })
+      require("plugins.nvim-tree")
     end,
   })
 

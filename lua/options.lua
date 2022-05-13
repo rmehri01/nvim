@@ -69,3 +69,9 @@ vim.wo.signcolumn = "yes"
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
+
+-- Don't need to show mode since it's in the statusline
+vim.o.showmode = false
+
+-- Keep cursor closer to the center
+vim.o.scrolloff = 10
