@@ -17,54 +17,95 @@ packer.init({
 
 -- Set up other plugins
 require("packer").startup(function(use)
+  -- General -------------------------------------------------------------------
   use("wbthomason/packer.nvim") -- Package manager
   use("lewis6991/impatient.nvim") -- Improve startup time
+
+  -- Editing -------------------------------------------------------------------
+
+  -- Smart commenting
   use({
     "numToStr/Comment.nvim",
     keys = { "gc", "gb" },
     config = function()
       require("Comment").setup()
     end,
-  }) -- "gc" to comment visual regions/lines
-  -- UI to select things (files, grep results, open buffers...)
-  use({ "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" })
-  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-  use({ "nvim-telescope/telescope-file-browser.nvim" })
+  })
+
+  -- Faster navigation
   use({
-    "~/.config/nvim/onenord.nvim",
+    "ggandor/lightspeed.nvim",
+    keys = { "s", "S", "f", "F", "t", "T" },
+  })
+  use("tpope/vim-repeat")
+  use({
+    "tpope/vim-surround",
+    keys = { "c", "d", "y" },
+  })
+
+  use({
+    "akinsho/toggleterm.nvim",
+    cmd = "ToggleTerm",
     config = function()
-      require("onenord").setup({
-        styles = {
-          keywords = "italic",
-        },
-        inverse = {
-          match_paren = true,
+      require("toggleterm").setup({
+        open_mapping = [[<c-t>]],
+        direction = "float",
+        float_opts = {
+          border = "curved",
         },
       })
     end,
-  }) -- Theme inspired by Atom
-  use("nvim-lualine/lualine.nvim") -- Fancier statusline
+  })
   use({
-    "akinsho/bufferline.nvim",
+    "kyazdani42/nvim-tree.lua",
+    cmd = "NvimTreeToggle",
     requires = "kyazdani42/nvim-web-devicons",
+    tag = "nightly",
     config = function()
-      require("bufferline").setup()
+      vim.g.nvim_tree_respect_buf_cwd = 1
+
+      require("nvim-tree").setup({
+        update_cwd = true,
+        update_focused_file = {
+          enable = true,
+          update_cwd = true,
+        },
+      })
     end,
   })
-  use("kyazdani42/nvim-web-devicons") -- More icons
-  -- Add indentation guides even on blank lines
   use({
-    "lukas-reineke/indent-blankline.nvim",
+    "ahmedkhalf/project.nvim",
     config = function()
-      require("indent_blankline").setup()
+      require("project_nvim").setup()
     end,
   })
-  -- Add git related info in the signs columns and popups
-  use({ "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" })
-  -- Highlight, edit, and navigate code using a fast incremental parsing library
+  use({
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup()
+    end,
+  })
+
+  -- Tree Sitter ---------------------------------------------------------------
+
+  -- Fast incremental parsing for highlighting, editing, and navigating code
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-  -- Additional textobjects for treesitter
-  use({ "nvim-treesitter/nvim-treesitter-textobjects", requires = "nvim-treesitter/nvim-treesitter" })
+  use({
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    requires = "nvim-treesitter/nvim-treesitter",
+  })
+  use({ "nvim-treesitter/playground" })
+  use({
+    "stevearc/aerial.nvim",
+    cmd = "AerialToggle",
+    config = function()
+      require("aerial").setup()
+    end,
+  })
+
+  -- LSP -----------------------------------------------------------------------
+
+  -- Collection of configurations for built-in LSP client
   use({
     "neovim/nvim-lspconfig",
     config = function()
@@ -117,25 +158,10 @@ require("packer").startup(function(use)
         },
       })
     end,
-  }) -- Collection of configurations for built-in LSP client
+  })
   use("j-hui/fidget.nvim") -- LSP loading progress
-  use("hrsh7th/nvim-cmp") -- Autocompletion plugin
-  use("hrsh7th/cmp-nvim-lsp")
-  use("saadparwaiz1/cmp_luasnip")
-  use("hrsh7th/cmp-path")
-  use("L3MON4D3/LuaSnip") -- Snippets plugin
-  use({
-    "ggandor/lightspeed.nvim",
-    keys = { "s", "S", "f", "F", "t", "T" },
-  })
-  use({ "tpope/vim-repeat" })
-  use({
-    "kevinhwang91/nvim-bqf",
-    ft = "qf",
-    config = function()
-      require("bqf").setup()
-    end,
-  })
+
+  -- Show signature of function calls
   use({
     "ray-x/lsp_signature.nvim",
     config = function()
@@ -144,10 +170,8 @@ require("packer").startup(function(use)
       })
     end,
   })
-  use({
-    "tpope/vim-surround",
-    keys = { "c", "d", "y" },
-  })
+
+  -- Lightbulb on code actions
   use({
     "kosayoda/nvim-lightbulb",
     config = function()
@@ -157,6 +181,8 @@ require("packer").startup(function(use)
       })
     end,
   })
+
+  -- Extra tools for Rust
   use({
     "simrat39/rust-tools.nvim",
     ft = { "rust", "rs" },
@@ -191,31 +217,46 @@ require("packer").startup(function(use)
       })
     end,
   })
-  use({ "nvim-treesitter/playground" })
+
   use({
-    "luukvbaal/stabilize.nvim",
+    "jose-elias-alvarez/null-ls.nvim",
     config = function()
-      require("stabilize").setup()
+      require("null-ls").setup({
+        sources = {
+          require("null-ls").builtins.formatting.stylua,
+        },
+      })
     end,
   })
   use({
-    "nacro90/numb.nvim",
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+    requires = "kyazdani42/nvim-web-devicons",
     config = function()
-      require("numb").setup()
+      require("trouble").setup()
     end,
   })
+
+  -- Autocompletion ------------------------------------------------------------
+
+  use("hrsh7th/nvim-cmp")
+  use("hrsh7th/cmp-nvim-lsp")
+  use("saadparwaiz1/cmp_luasnip")
+  use("hrsh7th/cmp-path")
   use({
-    "ethanholz/nvim-lastplace",
+    "saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    requires = "nvim-lua/plenary.nvim",
     config = function()
-      require("nvim-lastplace").setup()
+      require("crates").setup()
     end,
   })
-  use({
-    "lukas-reineke/virt-column.nvim",
-    config = function()
-      require("virt-column").setup()
-    end,
-  })
+
+  use("L3MON4D3/LuaSnip") -- Snippets plugin
+  use("rafamadriz/friendly-snippets")
+
+  -- Git --------------------------------------------------------------------
+
   use({
     "TimUntersberger/neogit",
     cmd = "Neogit",
@@ -230,6 +271,107 @@ require("packer").startup(function(use)
   })
   use({ "sindrets/diffview.nvim", cmd = "DiffviewOpen" })
   use({
+    "danymat/neogen",
+    cmd = "Neogen",
+    config = function()
+      require("neogen").setup({
+        enabled = true,
+      })
+    end,
+    requires = "nvim-treesitter/nvim-treesitter",
+  })
+
+  -- UI improvements --------------------------------------------------------------------
+
+  -- Select things (files, grep results, open buffers...)
+  use({ "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" })
+  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+  use({ "nvim-telescope/telescope-file-browser.nvim" })
+
+  -- Theme
+  use({
+    "~/.config/nvim/onenord.nvim",
+    config = function()
+      require("onenord").setup({
+        styles = {
+          keywords = "italic",
+        },
+        inverse = {
+          match_paren = true,
+        },
+      })
+    end,
+  })
+
+  -- Fancier statusline and bufferline
+  use({"nvim-lualine/lualine.nvim", config = function ()
+require("lualine").setup()
+  end})
+  use({
+    "akinsho/bufferline.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("bufferline").setup()
+    end,
+  })
+  use("kyazdani42/nvim-web-devicons") -- More icons
+
+  -- Better quickfix list
+  use({
+    "kevinhwang91/nvim-bqf",
+    ft = "qf",
+    config = function()
+      require("bqf").setup()
+    end,
+  })
+
+  -- Indentation guides
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("indent_blankline").setup()
+    end,
+  })
+
+  -- Add git related info in the signs columns and popups
+  use({ "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" , config = function ()
+require("gitsigns").setup({
+  current_line_blame = true,
+  current_line_blame_formatter_opts = {
+    relative_time = true,
+  },
+})
+  end})
+
+  use({
+    "luukvbaal/stabilize.nvim",
+    config = function()
+      require("stabilize").setup()
+    end,
+  })
+
+  use({
+    "nacro90/numb.nvim",
+    config = function()
+      require("numb").setup()
+    end,
+  })
+
+  use({
+    "ethanholz/nvim-lastplace",
+    config = function()
+      require("nvim-lastplace").setup()
+    end,
+  })
+
+  use({
+    "lukas-reineke/virt-column.nvim",
+    config = function()
+      require("virt-column").setup()
+    end,
+  })
+
+  use({
     "stevearc/dressing.nvim",
     config = function()
       require("dressing").setup({
@@ -239,6 +381,7 @@ require("packer").startup(function(use)
       })
     end,
   })
+
   use({
     "petertriho/nvim-scrollbar",
     requires = "~/.config/nvim/onenord.nvim",
@@ -260,24 +403,7 @@ require("packer").startup(function(use)
       })
     end,
   })
-  use({
-    "danymat/neogen",
-    cmd = "Neogen",
-    config = function()
-      require("neogen").setup({
-        enabled = true,
-      })
-    end,
-    requires = "nvim-treesitter/nvim-treesitter",
-  })
-  use({
-    "saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("crates").setup()
-    end,
-  })
+
   use({
     "edluffy/specs.nvim",
     config = function()
@@ -300,14 +426,7 @@ require("packer").startup(function(use)
       })
     end,
   })
-  use({
-    "stevearc/aerial.nvim",
-    cmd = "AerialToggle",
-    config = function()
-      require("aerial").setup()
-    end,
-  })
-  use("rafamadriz/friendly-snippets")
+
   use({
     "goolord/alpha-nvim",
     requires = "kyazdani42/nvim-web-devicons",
@@ -341,58 +460,7 @@ require("packer").startup(function(use)
       alpha.setup(dashboard.config)
     end,
   })
-  use({
-    "akinsho/toggleterm.nvim",
-    cmd = "ToggleTerm",
-    config = function()
-      require("toggleterm").setup({
-        open_mapping = [[<c-t>]],
-        direction = "float",
-        float_opts = {
-          border = "curved",
-        },
-      })
-    end,
-  })
-  use({
-    "kyazdani42/nvim-tree.lua",
-    cmd = "NvimTreeToggle",
-    requires = "kyazdani42/nvim-web-devicons",
-    tag = "nightly",
-    config = function()
-      vim.g.nvim_tree_respect_buf_cwd = 1
 
-      require("nvim-tree").setup({
-        update_cwd = true,
-        update_focused_file = {
-          enable = true,
-          update_cwd = true,
-        },
-      })
-    end,
-  })
-  use({
-    "ahmedkhalf/project.nvim",
-    config = function()
-      require("project_nvim").setup()
-    end,
-  })
-  use({
-    "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup()
-    end,
-  })
-  use({
-    "jose-elias-alvarez/null-ls.nvim",
-    config = function()
-      require("null-ls").setup({
-        sources = {
-          require("null-ls").builtins.formatting.stylua,
-        },
-      })
-    end,
-  })
   use({
     "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
@@ -400,30 +468,7 @@ require("packer").startup(function(use)
       require("todo-comments").setup()
     end,
   })
-  use({
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup()
-    end,
-  })
 end)
-
--- Set statusbar
-require("lualine").setup({
-  options = {
-    theme = "onenord",
-  },
-})
-
--- Gitsigns
-require("gitsigns").setup({
-  current_line_blame = true,
-  current_line_blame_formatter_opts = {
-    relative_time = true,
-  },
-})
 
 -- Telescope
 require("telescope").setup({
@@ -437,7 +482,6 @@ require("telescope").setup({
   },
 })
 
--- Enable telescope fzf native
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("projects")
