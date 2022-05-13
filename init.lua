@@ -3,5 +3,6 @@ pcall(require, "impatient")
 
 require("options")
 require("autocmds")
+require("lsp")
 require("plugins")
 require("mappings")
