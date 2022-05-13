@@ -400,6 +400,14 @@ require("packer").startup(function(use)
       require("todo-comments").setup()
     end,
   })
+
+  -- Manage and display key bindings
+  use({
+    "folke/which-key.nvim",
+    config = function()
+      require("plugins.which-key")
+    end,
+  })
 end)
 
 require("plugins.cmp")

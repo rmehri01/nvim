@@ -75,3 +75,6 @@ vim.o.showmode = false
 
 -- Keep cursor closer to the center
 vim.o.scrolloff = 10
+
+-- Don't wrap long lines
+vim.o.wrap = false
