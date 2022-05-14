@@ -21,7 +21,15 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Format on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
-  callback = vim.lsp.buf.format,
+  callback = function()
+    vim.lsp.buf.format({
+      filter = function(clients)
+        return vim.tbl_filter(function(client)
+          return client.name ~= "sumneko_lua"
+        end, clients)
+      end,
+    })
+  end,
 })
 
 -- Run PackerCompile when plugins are updated
