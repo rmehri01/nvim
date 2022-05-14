@@ -1,3 +1,4 @@
+-- Performance improvements
 vim.opt.lazyredraw = true
 
 local disabled_built_ins = {
