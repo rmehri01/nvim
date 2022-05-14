@@ -6,6 +6,11 @@ require("telescope").setup({
       horizontal = { preview_width = 0.5 },
     },
   },
+  extensions = {
+    file_browser = {
+      theme = "ivy",
+    },
+  },
 })
 
 require("telescope").load_extension("fzf")
