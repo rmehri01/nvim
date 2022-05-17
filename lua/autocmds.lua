@@ -1,5 +1,5 @@
 -- Don't continue comments on new line
-vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufRead", "BufNewFile" }, {
   command = "setlocal formatoptions-=cro",
 })
 
