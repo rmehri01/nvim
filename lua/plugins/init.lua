@@ -219,7 +219,7 @@ require("packer").startup(function(use)
   use("L3MON4D3/LuaSnip") -- Snippets plugin
   use("rafamadriz/friendly-snippets")
 
-  -- Git ----------------------------------------------------------------------
+  -- Git -----------------------------------------------------------------------
 
   use({
     "TimUntersberger/neogit",
@@ -249,7 +249,7 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- UI improvements -----------------------------------------------------------
+  -- UI Improvements -----------------------------------------------------------
 
   -- Select things (files, grep results, open buffers...)
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })

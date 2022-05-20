@@ -20,5 +20,5 @@ vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<CR>")
 -- nvim-tree
 vim.keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<cr>")
 
--- remove highlight after searching
+-- Remove highlight after searching
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")

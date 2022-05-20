@@ -1,7 +1,7 @@
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "c", "lua", "rust", "markdown" },
   highlight = {
-    enable = true, -- false will disable the whole extension
+    enable = true,
   },
   incremental_selection = {
     enable = true,
@@ -48,7 +48,7 @@ require("nvim-treesitter.configs").setup({
     },
     move = {
       enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
+      set_jumps = true,
       goto_next_start = {
         ["]]"] = "@function.outer",
         ["]c"] = "@class.outer",
