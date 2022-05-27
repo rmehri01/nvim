@@ -23,10 +23,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
     vim.lsp.buf.format({
-      filter = function(clients)
-        return vim.tbl_filter(function(client)
-          return client.name ~= "sumneko_lua"
-        end, clients)
+      filter = function(client)
+        return client.name ~= "sumneko_lua"
       end,
     })
   end,
