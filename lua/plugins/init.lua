@@ -33,10 +33,7 @@ require("packer").startup(function(use)
   })
 
   -- Faster navigation
-  use({
-    "ggandor/lightspeed.nvim",
-    keys = { "s", "S", "f", "F", "t", "T" },
-  })
+  use("ggandor/lightspeed.nvim")
 
   -- Edit surroundings
   use({
