@@ -1,5 +1,15 @@
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "c", "lua", "rust", "markdown" },
+  ensure_installed = {
+    "bash",
+    "c",
+    "json",
+    "lua",
+    "python",
+    "rust",
+    "markdown",
+    "toml",
+    "yaml",
+  },
   highlight = {
     enable = true,
   },
