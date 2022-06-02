@@ -20,6 +20,7 @@ require("rust-tools").setup({
           enableExperimental = true,
         },
         checkOnSave = {
+          allTargets = false,
           command = "clippy",
         },
       },
