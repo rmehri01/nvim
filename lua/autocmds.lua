@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- Enable spellchecking in markdown, text and gitcommit files
+-- Enable spellchecking in markdown, text, and gitcommit files
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "NeogitCommitMessage", "gitcommit", "markdown", "text" },
   callback = function()
