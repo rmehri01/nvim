@@ -213,11 +213,24 @@ require("packer").startup(function(use)
   use("saadparwaiz1/cmp_luasnip")
   use("hrsh7th/cmp-path")
   use({
+    "petertriho/cmp-git",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("cmp_git").setup({
+        filetypes = { "gitcommit", "octo", "NeogitCommitMessage" },
+      })
+    end,
+  })
+  use({
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
     requires = "nvim-lua/plenary.nvim",
     config = function()
-      require("crates").setup()
+      require("crates").setup({
+        popup = {
+          border = "rounded",
+        },
+      })
     end,
   })
 
