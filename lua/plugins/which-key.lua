@@ -83,6 +83,7 @@ wk.register({
     s = { "<cmd>Telescope grep_string<cr>", "String under cursor" },
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },
+    H = { "<cmd>Telescope highlights<cr>", "Highlights" },
   },
   t = {
     name = "Trouble",
