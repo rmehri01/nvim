@@ -37,10 +37,11 @@ require("packer").startup(function(use)
 
   -- Edit surroundings
   use({
-    "tpope/vim-surround",
-    keys = { "c", "d", "y" },
+    "kylechui/nvim-surround",
+    config = function()
+      require("nvim-surround").setup()
+    end,
   })
-  use("tpope/vim-repeat")
 
   use({
     "windwp/nvim-autopairs",
@@ -99,6 +100,14 @@ require("packer").startup(function(use)
     "ethanholz/nvim-lastplace",
     config = function()
       require("nvim-lastplace").setup()
+    end,
+  })
+
+  -- Automatically set indentation style
+  use({
+    "nmac427/guess-indent.nvim",
+    config = function()
+      require("guess-indent").setup()
     end,
   })
 
