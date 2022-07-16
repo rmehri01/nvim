@@ -41,9 +41,6 @@ vim.opt.splitright = true
 -- Highlight the current line
 vim.opt.cursorline = true
 
--- Use color column
-vim.opt.colorcolumn = "100"
-
 -- Set highlight on search
 vim.opt.hlsearch = true
 

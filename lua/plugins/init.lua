@@ -345,14 +345,6 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- Display a character as the colorcolumn
-  use({
-    "lukas-reineke/virt-column.nvim",
-    config = function()
-      require("virt-column").setup()
-    end,
-  })
-
   -- Stabilize buffer content on window open/close
   use({
     "luukvbaal/stabilize.nvim",
