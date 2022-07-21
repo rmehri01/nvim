@@ -17,8 +17,8 @@ vim.opt.relativenumber = true
 -- Allow neovim to access the system clipboard
 vim.opt.clipboard = "unnamedplus"
 
--- Enable mouse mode
-vim.opt.mouse = "a"
+-- More granular scrolling
+vim.opt.mousescroll = "ver:1,hor:6"
 
 -- Save undo history
 vim.opt.undofile = true
