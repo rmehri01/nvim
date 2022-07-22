@@ -435,6 +435,17 @@ require("packer").startup(function(use)
       require("plugins.which-key")
     end,
   })
+
+  -- Nice diagnostics in virtual text
+  use({
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+      vim.diagnostic.config({
+        virtual_text = false,
+      })
+      require("lsp_lines").setup()
+    end,
+  })
 end)
 
 require("plugins.cmp")
