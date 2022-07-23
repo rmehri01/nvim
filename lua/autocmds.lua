@@ -22,11 +22,14 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
-    vim.lsp.buf.format({
-      filter = function(client)
-        return client.name ~= "sumneko_lua"
-      end,
-    })
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    if #clients ~= 0 then
+      vim.lsp.buf.format({
+        filter = function(client)
+          return client.name ~= "sumneko_lua"
+        end,
+      })
+    end
   end,
 })
 
