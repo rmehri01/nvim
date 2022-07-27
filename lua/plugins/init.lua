@@ -34,6 +34,7 @@ require("packer").startup(function(use)
 
   -- Faster navigation
   use("ggandor/lightspeed.nvim")
+  use("tpope/vim-repeat")
 
   -- Edit surroundings
   use({
