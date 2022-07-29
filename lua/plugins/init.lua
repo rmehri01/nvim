@@ -298,9 +298,6 @@ require("packer").startup(function(use)
         styles = {
           keywords = "italic",
         },
-        inverse = {
-          match_paren = true,
-        },
       })
     end,
   })
