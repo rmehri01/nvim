@@ -57,9 +57,6 @@ vim.opt.completeopt = "menuone,noselect"
 -- Don't need to show mode since it's in the statusline
 vim.opt.showmode = false
 
--- Disable echo area
-vim.opt.cmdheight = 0
-
 -- Performance -----------------------------------------------------------------
 
 -- Disable unused built-ins
