@@ -57,6 +57,12 @@ vim.opt.completeopt = "menuone,noselect"
 -- Don't need to show mode since it's in the statusline
 vim.opt.showmode = false
 
+-- Stabilize buffer content on window open/close
+vim.opt.splitkeep = "screen"
+
+-- Global status line
+vim.opt.laststatus = 3
+
 -- Performance -----------------------------------------------------------------
 
 -- Disable unused built-ins

@@ -366,14 +366,6 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- Stabilize buffer content on window open/close
-  use({
-    "luukvbaal/stabilize.nvim",
-    config = function()
-      require("stabilize").setup()
-    end,
-  })
-
   -- Peek lines of a buffer
   use({
     "nacro90/numb.nvim",
