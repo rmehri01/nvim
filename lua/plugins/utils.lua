@@ -23,6 +23,6 @@ function utils.on_attach(client, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-utils.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+utils.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 return utils
