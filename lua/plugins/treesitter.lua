@@ -7,9 +7,11 @@ require("nvim-treesitter.configs").setup({
     "json",
     "lua",
     "python",
+    "regex",
     "rust",
     "markdown",
     "toml",
+    "vim",
     "yaml",
   },
   highlight = {
