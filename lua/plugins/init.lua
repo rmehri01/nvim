@@ -164,28 +164,6 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- LSP loading progress
-  use({
-    "j-hui/fidget.nvim",
-    config = function()
-      require("fidget").setup({
-        text = {
-          spinner = "dots",
-        },
-      })
-    end,
-  })
-
-  -- Show signature of function calls
-  use({
-    "ray-x/lsp_signature.nvim",
-    config = function()
-      require("lsp_signature").setup({
-        hint_prefix = "🦔 ",
-      })
-    end,
-  })
-
   -- Lightbulb on code actions
   use({
     "kosayoda/nvim-lightbulb",
@@ -267,6 +245,7 @@ require("packer").startup(function(use)
     requires = "nvim-lua/plenary.nvim",
     config = function()
       require("neogit").setup({
+        disable_commit_confirmation = true,
         integrations = {
           diffview = true,
         },
@@ -362,7 +341,9 @@ require("packer").startup(function(use)
   use({
     "lukas-reineke/indent-blankline.nvim",
     config = function()
-      require("indent_blankline").setup()
+      require("indent_blankline").setup({
+        show_current_context = true,
+      })
     end,
   })
 
@@ -385,27 +366,41 @@ require("packer").startup(function(use)
       })
     end,
   })
+  use({
+    "folke/noice.nvim",
+    event = "VimEnter",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = function()
+      require("noice").setup({
+        lsp = {
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+        },
+        presets = {
+          command_palette = true,
+          lsp_doc_border = true,
+        },
+        routes = {
+          {
+            view = "notify",
+            filter = { event = "msg_showmode" },
+          },
+        },
+      })
+    end,
+  })
 
   -- Scrollbar with diagnostics
   use({
-    "petertriho/nvim-scrollbar",
-    requires = "~/.config/nvim/onenord.nvim",
+    "lewis6991/satellite.nvim",
     config = function()
-      local colors = require("onenord.colors").load()
-
-      require("scrollbar").setup({
-        handle = {
-          color = colors.selection,
-        },
-        marks = {
-          Search = { color = colors.orange },
-          Error = { color = colors.error },
-          Warn = { color = colors.warn },
-          Info = { color = colors.info },
-          Hint = { color = colors.hint },
-          Misc = { color = colors.purple },
-        },
-      })
+      require("satellite").setup()
     end,
   })
 
