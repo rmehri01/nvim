@@ -30,6 +30,12 @@ vim.opt.smartcase = true
 -- Keep cursor closer to the center
 vim.opt.scrolloff = 10
 
+-- Enable spell checking
+vim.opt.spell = true
+
+-- Enable better diffing
+vim.opt.diffopt:append({ "linematch:60" })
+
 -- UI Improvements -------------------------------------------------------------
 
 -- Force all horizontal splits to go below current window
