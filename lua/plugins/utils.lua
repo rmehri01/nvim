@@ -1,6 +1,7 @@
 local utils = {}
 
 function utils.on_attach(client, bufnr)
+  require("lsp-format").on_attach(client)
   if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_create_augroup("lsp_document_highlight", {
       clear = false,

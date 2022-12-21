@@ -96,6 +96,15 @@ require("packer").startup(function(use)
     end,
   })
 
+  -- Better matching text using tree sitter
+  use({
+    "andymass/vim-matchup",
+    event = "BufReadPost",
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+    end,
+  })
+
   -- Annotation generator
   use({
     "danymat/neogen",
@@ -103,7 +112,7 @@ require("packer").startup(function(use)
     requires = "nvim-treesitter/nvim-treesitter",
     config = function()
       require("neogen").setup({
-        enabled = true,
+        snippet_engine = "luasnip",
       })
     end,
   })
@@ -203,6 +212,14 @@ require("packer").startup(function(use)
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
       require("trouble").setup()
+    end,
+  })
+
+  -- Auto format on save
+  use({
+    "lukas-reineke/lsp-format.nvim",
+    config = function()
+      require("lsp-format").setup()
     end,
   })
 

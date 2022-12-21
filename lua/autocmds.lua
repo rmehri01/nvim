@@ -18,21 +18,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Format on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function()
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
-    if #clients ~= 0 then
-      vim.lsp.buf.format({
-        filter = function(client)
-          return client.name ~= "sumneko_lua"
-        end,
-      })
-    end
-  end,
-})
-
 -- Run PackerCompile when plugins are updated
 local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
 vim.api.nvim_create_autocmd(
