@@ -16,7 +16,7 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup("plugins.list", {
   checker = { enabled = true },
   ui = {
-    border = 'rounded',
+    border = "rounded",
   },
   install = { colorscheme = { "onenord" } },
   performance = {

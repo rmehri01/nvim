@@ -195,14 +195,6 @@ return {
     end,
   },
 
-  -- Auto format on save
-  {
-    "lukas-reineke/lsp-format.nvim",
-    config = function()
-      require("lsp-format").setup()
-    end,
-  },
-
   -- Autocompletion ------------------------------------------------------------
 
   { "hrsh7th/nvim-cmp" },
