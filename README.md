@@ -11,5 +11,4 @@
 
 ```
 gh repo clone rmehri01/nvim .config/nvim/ -- --recurse-submodules
-nvim +PackerSync
 ```

@@ -2,7 +2,7 @@
 pcall(require, "impatient")
 
 require("options")
+require("mappings")
 require("autocmds")
 require("lsp")
 require("plugins")
-require("mappings")

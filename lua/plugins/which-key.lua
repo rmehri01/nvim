@@ -31,14 +31,7 @@ wk.register({
       e = { "<cmd>BufferLineSortByExtension<cr>", "Sort by extension" },
     },
   },
-  p = {
-    name = "Packer",
-    c = { "<cmd>PackerCompile<cr>", "Compile" },
-    i = { "<cmd>PackerInstall<cr>", "Install" },
-    s = { "<cmd>PackerSync<cr>", "Sync" },
-    S = { "<cmd>PackerStatus<cr>", "Status" },
-    u = { "<cmd>PackerUpdate<cr>", "Update" },
-  },
+  p = { "<cmd>Lazy<cr>", "Lazy" },
   g = {
     name = "Git",
     j = { require("gitsigns").next_hunk, "Next hunk" },

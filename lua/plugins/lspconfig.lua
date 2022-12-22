@@ -21,6 +21,9 @@ lspconfig.sumneko_lua.setup({
   capabilities = capabilities,
   settings = {
     Lua = {
+      format = {
+        enable = false,
+      },
       runtime = {
         -- Tell the language server which version of Lua to use (most likely LuaJIT in the case of Neovim)
         version = "LuaJIT",
@@ -34,6 +37,7 @@ lspconfig.sumneko_lua.setup({
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
       },
       -- Do not send telemetry data
       telemetry = {
