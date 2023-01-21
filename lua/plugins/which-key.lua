@@ -57,6 +57,7 @@ wk.register({
     name = "LSP",
     a = { vim.lsp.buf.code_action, "Code action" },
     e = { vim.diagnostic.open_float, "Errors on current line" },
+    h = { vim.show_pos, "Highlights" },
     i = { "<cmd>LspInfo<cr>", "Info" },
     j = { vim.diagnostic.goto_next, "Next diagnostic" },
     k = { vim.diagnostic.goto_prev, "Prev diagnostic" },
@@ -93,7 +94,6 @@ wk.register({
     name = "Treesitter",
     i = { ":TSConfigInfo<cr>", "Info" },
     p = { "<cmd>TSPlaygroundToggle<cr>", "Playground" },
-    h = { "<cmd>TSHighlightCapturesUnderCursor<cr>", "Highlight" },
     g = { "<cmd>Neogen<cr>", "Neogen" },
   },
 }, {

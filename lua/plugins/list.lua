@@ -28,6 +28,7 @@ return {
 
   {
     "windwp/nvim-autopairs",
+    event = "InsertEnter",
     config = function()
       require("nvim-autopairs").setup({
         check_ts = true,
@@ -125,8 +126,8 @@ return {
       require("plugins.treesitter")
     end,
   },
-  { "nvim-treesitter/nvim-treesitter-textobjects" },
-  { "nvim-treesitter/playground" },
+  { "nvim-treesitter/nvim-treesitter-textobjects", event = "BufReadPost" },
+  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 
   -- Show context of the buffer contents
   {
@@ -201,32 +202,37 @@ return {
 
   -- Autocompletion ------------------------------------------------------------
 
-  { "hrsh7th/nvim-cmp", event = "InsertEnter" },
-  { "hrsh7th/cmp-nvim-lsp" },
-  { "saadparwaiz1/cmp_luasnip" },
-  { "hrsh7th/cmp-path" },
   {
-    "petertriho/cmp-git",
-    config = function()
-      require("cmp_git").setup({
-        filetypes = { "gitcommit", "octo", "NeogitCommitMessage" },
-      })
-    end,
-  },
-  {
-    "saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
-    config = function()
-      require("crates").setup({
-        popup = {
-          border = "rounded",
-        },
-      })
-    end,
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "saadparwaiz1/cmp_luasnip" },
+      { "hrsh7th/cmp-path" },
+      {
+        "petertriho/cmp-git",
+        config = function()
+          require("cmp_git").setup({
+            filetypes = { "gitcommit", "octo", "NeogitCommitMessage" },
+          })
+        end,
+      },
+      {
+        "saecki/crates.nvim",
+        event = { "BufRead Cargo.toml" },
+        config = function()
+          require("crates").setup({
+            popup = {
+              border = "rounded",
+            },
+          })
+        end,
+      },
+    },
   },
 
-  { "L3MON4D3/LuaSnip" }, -- Snippets plugin
-  { "rafamadriz/friendly-snippets" },
+  -- Snippets plugin
+  { "L3MON4D3/LuaSnip", event = "InsertEnter", dependencies = { "rafamadriz/friendly-snippets" } },
 
   -- Git -----------------------------------------------------------------------
 
