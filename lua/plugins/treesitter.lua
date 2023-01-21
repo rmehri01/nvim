@@ -4,6 +4,8 @@ require("nvim-treesitter.configs").setup({
     "c",
     "cpp",
     "comment",
+    "gitcommit",
+    "gitignore",
     "haskell",
     "help",
     "json",
@@ -23,14 +25,11 @@ require("nvim-treesitter.configs").setup({
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
+      init_selection = "<C-space>",
+      node_incremental = "<C-space>",
+      scope_incremental = "<nop>",
+      node_decremental = "<bs>",
     },
-  },
-  indent = {
-    enable = true,
   },
   matchup = {
     enable = true,

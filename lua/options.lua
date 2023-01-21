@@ -36,6 +36,16 @@ vim.opt.spell = true
 -- Enable better diffing
 vim.opt.diffopt:append({ "linematch:60" })
 
+-- Disable line wrap
+vim.opt.wrap = false
+
+-- Better folding using tree-sitter
+vim.opt.foldlevelstart = 99
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- https://github.com/nvim-telescope/telescope.nvim/issues/699#issuecomment-1159637962
+vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx" })
+
 -- UI Improvements -------------------------------------------------------------
 
 -- Force all horizontal splits to go below current window
@@ -50,9 +60,8 @@ vim.opt.cursorline = true
 -- Set highlight on search
 vim.opt.hlsearch = true
 
--- Enable smart indenting
-vim.opt.smartindent = true
-vim.opt.breakindent = true
+-- Use true colors
+vim.opt.termguicolors = true
 
 -- Always use signcolumn
 vim.opt.signcolumn = "yes"

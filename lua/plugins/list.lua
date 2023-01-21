@@ -1,4 +1,8 @@
 return {
+  -- General -------------------------------------------------------------------
+
+  { "nvim-lua/plenary.nvim", lazy = true },
+
   -- Editing -------------------------------------------------------------------
 
   -- Smart commenting
@@ -11,8 +15,8 @@ return {
   },
 
   -- Faster navigation
-  { "ggandor/lightspeed.nvim" },
-  { "tpope/vim-repeat" },
+  { "ggandor/lightspeed.nvim", event = "VeryLazy" },
+  { "tpope/vim-repeat", event = "VeryLazy" },
 
   -- Edit surroundings
   {
@@ -60,7 +64,6 @@ return {
   {
     "kyazdani42/nvim-tree.lua",
     cmd = "NvimTreeToggle",
-    dependencies = "kyazdani42/nvim-web-devicons",
     tag = "nightly",
     config = function()
       require("plugins.nvim-tree")
@@ -148,6 +151,7 @@ return {
   -- Collection of configurations for built-in LSP client
   {
     "neovim/nvim-lspconfig",
+    event = "BufReadPre",
     config = function()
       require("plugins.lspconfig")
     end,
@@ -176,6 +180,7 @@ return {
   -- Allows non-LSP sources to use the LSP client
   {
     "jose-elias-alvarez/null-ls.nvim",
+    event = "BufReadPre",
     config = function()
       require("null-ls").setup({
         sources = {
@@ -188,8 +193,7 @@ return {
   -- Nicer diagnostics list
   {
     "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-    dependencies = "kyazdani42/nvim-web-devicons",
+    cmd = { "TroubleToggle", "Trouble" },
     config = function()
       require("trouble").setup()
     end,
@@ -197,13 +201,12 @@ return {
 
   -- Autocompletion ------------------------------------------------------------
 
-  { "hrsh7th/nvim-cmp" },
+  { "hrsh7th/nvim-cmp", event = "InsertEnter" },
   { "hrsh7th/cmp-nvim-lsp" },
   { "saadparwaiz1/cmp_luasnip" },
   { "hrsh7th/cmp-path" },
   {
     "petertriho/cmp-git",
-    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("cmp_git").setup({
         filetypes = { "gitcommit", "octo", "NeogitCommitMessage" },
@@ -213,7 +216,6 @@ return {
   {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
-    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("crates").setup({
         popup = {
@@ -231,7 +233,6 @@ return {
   {
     "TimUntersberger/neogit",
     cmd = "Neogit",
-    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("neogit").setup({
         disable_commit_confirmation = true,
@@ -247,7 +248,6 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
-    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("gitsigns").setup({
         current_line_blame = true,
@@ -260,12 +260,14 @@ return {
 
   -- UI Improvements -----------------------------------------------------------
 
+  { "lervag/vimtex" },
+
   -- Select things (files, grep results, open buffers...)
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   { "nvim-telescope/telescope-file-browser.nvim" },
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = "nvim-lua/plenary.nvim",
+    cmd = "Telescope",
     config = function()
       require("plugins.telescope")
     end,
@@ -286,6 +288,7 @@ return {
   -- Fancier statusline and bufferline
   {
     "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
     config = function()
       require("lualine").setup({
         sections = {
@@ -303,8 +306,7 @@ return {
   },
   {
     "akinsho/bufferline.nvim",
-    dependencies = "kyazdani42/nvim-web-devicons",
-    event = "BufWinEnter",
+    event = "VeryLazy",
     config = function()
       require("bufferline").setup({
         options = {
@@ -316,7 +318,7 @@ return {
       })
     end,
   },
-  { "kyazdani42/nvim-web-devicons" }, -- More icons
+  { "kyazdani42/nvim-web-devicons", lazy = true }, -- More icons
 
   -- Better quickfix list
   {
@@ -330,6 +332,7 @@ return {
   -- Indentation guides
   {
     "lukas-reineke/indent-blankline.nvim",
+    event = "BufReadPre",
     config = function()
       require("indent_blankline").setup({
         show_current_context = true,
@@ -358,8 +361,7 @@ return {
   },
   {
     "folke/noice.nvim",
-    event = "VimEnter",
-    dependencies = "MunifTanjim/nui.nvim",
+    event = "VeryLazy",
     config = function()
       require("noice").setup({
         lsp = {
@@ -379,6 +381,18 @@ return {
             filter = { event = "msg_showmode" },
           },
         },
+      })
+    end,
+  },
+  { "MunifTanjim/nui.nvim", lazy = true },
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      require("notify").setup({
+        fps = 30,
+        stages = "fade_in_slide_out",
+        timeout = 500,
+        top_down = true,
       })
     end,
   },
@@ -408,7 +422,7 @@ return {
   -- Fancy dashboard
   {
     "goolord/alpha-nvim",
-    dependencies = "kyazdani42/nvim-web-devicons",
+    event = "VimEnter",
     config = function()
       require("plugins.alpha")
     end,
@@ -417,7 +431,8 @@ return {
   -- Highlight todo comments
   {
     "folke/todo-comments.nvim",
-    dependencies = "nvim-lua/plenary.nvim",
+    cmd = { "TodoTrouble", "TodoTelescope" },
+    event = "BufReadPost",
     config = function()
       require("plugins.todo-comments")
     end,
@@ -426,6 +441,7 @@ return {
   -- Manage and display key bindings
   {
     "folke/which-key.nvim",
+    event = "VeryLazy",
     config = function()
       require("plugins.which-key")
     end,
