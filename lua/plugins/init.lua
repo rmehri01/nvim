@@ -47,5 +47,3 @@ require("lazy").setup("plugins.list", {
     },
   },
 })
-
-require("plugins.cmp")
