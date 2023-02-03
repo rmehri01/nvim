@@ -93,7 +93,7 @@ wk.register({
   T = {
     name = "Treesitter",
     i = { ":TSConfigInfo<cr>", "Info" },
-    p = { "<cmd>TSPlaygroundToggle<cr>", "Playground" },
+    s = { vim.treesitter.show_tree, "Show Tree" },
     g = { "<cmd>Neogen<cr>", "Neogen" },
   },
 }, {

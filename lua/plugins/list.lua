@@ -9,9 +9,7 @@ return {
   {
     "numToStr/Comment.nvim",
     keys = { "gc", "gb" },
-    config = function()
-      require("Comment").setup()
-    end,
+    opts = {},
   },
 
   -- Faster navigation
@@ -21,44 +19,38 @@ return {
   -- Edit surroundings
   {
     "kylechui/nvim-surround",
-    config = function()
-      require("nvim-surround").setup()
-    end,
+    opts = {},
   },
 
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    config = function()
-      require("nvim-autopairs").setup({
-        check_ts = true,
-        enable_check_bracket_line = false,
-        fast_wrap = {
-          map = "<C-b>",
-          chars = { "{", "[", "(", '"', "'" },
-          pattern = [=[[%'%"%)%>%]%)%}%,]]=],
-          end_key = "$",
-          keys = "qwertyuiopzxcvbnmasdfghjkl",
-          highlight = "LightspeedShortcut",
-          highlight_grey = "LightspeedGreyWash",
-        },
-      })
-    end,
+    opts = {
+      check_ts = true,
+      enable_check_bracket_line = false,
+      fast_wrap = {
+        map = "<C-b>",
+        chars = { "{", "[", "(", '"', "'" },
+        pattern = [=[[%'%"%)%>%]%)%}%,]]=],
+        end_key = "$",
+        keys = "qwertyuiopzxcvbnmasdfghjkl",
+        highlight = "LightspeedShortcut",
+        highlight_grey = "LightspeedGreyWash",
+      },
+    },
   },
 
   -- Manage terminal windows
   {
     "akinsho/toggleterm.nvim",
     keys = "<C-t>",
-    config = function()
-      require("toggleterm").setup({
-        open_mapping = "<C-t>",
-        direction = "float",
-        float_opts = {
-          border = "curved",
-        },
-      })
-    end,
+    opts = {
+      open_mapping = "<C-t>",
+      direction = "float",
+      float_opts = {
+        border = "curved",
+      },
+    },
   },
 
   -- File explorer tree
@@ -66,9 +58,7 @@ return {
     "kyazdani42/nvim-tree.lua",
     cmd = "NvimTreeToggle",
     tag = "nightly",
-    config = function()
-      require("plugins.nvim-tree")
-    end,
+    opts = require("plugins.nvim-tree"),
   },
 
   -- Project management
@@ -92,27 +82,21 @@ return {
   {
     "danymat/neogen",
     cmd = "Neogen",
-    config = function()
-      require("neogen").setup({
-        snippet_engine = "luasnip",
-      })
-    end,
+    opts = {
+      snippet_engine = "luasnip",
+    },
   },
 
   -- Reopen files at last edit position
   {
     "ethanholz/nvim-lastplace",
-    config = function()
-      require("nvim-lastplace").setup()
-    end,
+    opts = {},
   },
 
   -- Automatically set indentation style
   {
     "nmac427/guess-indent.nvim",
-    config = function()
-      require("guess-indent").setup()
-    end,
+    opts = {},
   },
 
   -- Tree Sitter ---------------------------------------------------------------
@@ -122,29 +106,25 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = "BufReadPost",
-    config = function()
-      require("plugins.treesitter")
+    opts = require("plugins.treesitter"),
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
   { "nvim-treesitter/nvim-treesitter-textobjects", event = "BufReadPost" },
-  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 
   -- Show context of the buffer contents
   {
     "nvim-treesitter/nvim-treesitter-context",
     event = "BufReadPre",
-    config = function()
-      require("treesitter-context").setup()
-    end,
+    opts = {},
   },
 
   -- Outline window
   {
     "stevearc/aerial.nvim",
     cmd = "AerialToggle",
-    config = function()
-      require("aerial").setup()
-    end,
+    opts = {},
   },
 
   -- LSP -----------------------------------------------------------------------
@@ -195,9 +175,7 @@ return {
   {
     "folke/trouble.nvim",
     cmd = { "TroubleToggle", "Trouble" },
-    config = function()
-      require("trouble").setup()
-    end,
+    opts = {},
   },
 
   -- Autocompletion ------------------------------------------------------------
@@ -211,22 +189,18 @@ return {
       { "hrsh7th/cmp-path" },
       {
         "petertriho/cmp-git",
-        config = function()
-          require("cmp_git").setup({
-            filetypes = { "gitcommit", "octo", "NeogitCommitMessage" },
-          })
-        end,
+        opts = {
+          filetypes = { "gitcommit", "octo", "NeogitCommitMessage" },
+        },
       },
       {
         "saecki/crates.nvim",
         event = { "BufRead Cargo.toml" },
-        config = function()
-          require("crates").setup({
-            popup = {
-              border = "rounded",
-            },
-          })
-        end,
+        opts = {
+          popup = {
+            border = "rounded",
+          },
+        },
       },
     },
     config = function()
@@ -246,14 +220,12 @@ return {
   {
     "TimUntersberger/neogit",
     cmd = "Neogit",
-    config = function()
-      require("neogit").setup({
-        disable_commit_confirmation = true,
-        integrations = {
-          diffview = true,
-        },
-      })
-    end,
+    opts = {
+      disable_commit_confirmation = true,
+      integrations = {
+        diffview = true,
+      },
+    },
   },
   { "sindrets/diffview.nvim" },
 
@@ -261,14 +233,12 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
-    config = function()
-      require("gitsigns").setup({
-        current_line_blame = true,
-        current_line_blame_formatter_opts = {
-          relative_time = true,
-        },
-      })
-    end,
+    opts = {
+      current_line_blame = true,
+      current_line_blame_formatter_opts = {
+        relative_time = true,
+      },
+    },
   },
 
   -- UI Improvements -----------------------------------------------------------
@@ -289,147 +259,112 @@ return {
   -- Theme
   {
     dir = "~/.config/nvim/onenord.nvim",
-    config = function()
-      require("onenord").setup({
-        styles = {
-          keywords = "italic",
-        },
-      })
-    end,
+    opts = {
+      styles = {
+        keywords = "italic",
+      },
+    },
   },
 
   -- Fancier statusline and bufferline
   {
     "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("lualine").setup({
-        sections = {
-          lualine_c = {
-            {
-              "filename",
-              file_status = true,
-              newfile_status = true,
-              path = 1,
-            },
+    opts = {
+      sections = {
+        lualine_c = {
+          {
+            "filename",
+            file_status = true,
+            newfile_status = true,
+            path = 1,
           },
         },
-      })
-    end,
+      },
+    },
   },
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
-    config = function()
-      require("bufferline").setup({
-        options = {
-          diagnostics = "nvim_lsp",
-          show_close_icon = false,
-          always_show_bufferline = false,
-          offsets = { { filetype = "NvimTree", text = "File Explorer", padding = 1 } },
-        },
-      })
-    end,
+    opts = {
+      options = {
+        diagnostics = "nvim_lsp",
+        show_close_icon = false,
+        always_show_bufferline = false,
+        offsets = { { filetype = "NvimTree", text = "File Explorer", padding = 1 } },
+      },
+    },
   },
-  { "kyazdani42/nvim-web-devicons", lazy = true }, -- More icons
+  { "nvim-tree/nvim-web-devicons", lazy = true }, -- More icons
 
   -- Better quickfix list
   {
     "kevinhwang91/nvim-bqf",
     ft = "qf",
-    config = function()
-      require("bqf").setup()
-    end,
+    opts = {},
   },
 
   -- Indentation guides
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPre",
-    config = function()
-      require("indent_blankline").setup({
-        show_current_context = true,
-      })
-    end,
+    opts = {
+      show_current_context = true,
+    },
   },
 
   -- Peek lines of a buffer
   {
     "nacro90/numb.nvim",
-    config = function()
-      require("numb").setup()
-    end,
+    opts = {},
   },
 
   -- Improve the default vim.ui interfaces
   {
     "stevearc/dressing.nvim",
-    config = function()
-      require("dressing").setup({
-        input = {
-          insert_only = false,
-        },
-      })
-    end,
+    opts = {
+      input = {
+        insert_only = false,
+      },
+    },
   },
   {
     "folke/noice.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("noice").setup({
-        lsp = {
-          override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
-          },
+    opts = {
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
         },
-        presets = {
-          command_palette = true,
-          lsp_doc_border = true,
+      },
+      presets = {
+        command_palette = true,
+        lsp_doc_border = true,
+      },
+      routes = {
+        {
+          view = "notify",
+          filter = { event = "msg_showmode" },
         },
-        routes = {
-          {
-            view = "notify",
-            filter = { event = "msg_showmode" },
-          },
-        },
-      })
-    end,
+      },
+    },
   },
   { "MunifTanjim/nui.nvim", lazy = true },
   {
     "rcarriga/nvim-notify",
-    config = function()
-      require("notify").setup({
-        fps = 30,
-        stages = "fade_in_slide_out",
-        timeout = 500,
-        top_down = true,
-      })
-    end,
+    lazy = true,
+    opts = {
+      fps = 30,
+      stages = "fade_in_slide_out",
+      timeout = 500,
+      top_down = true,
+    },
   },
 
   -- Scrollbar with diagnostics
   {
     "lewis6991/satellite.nvim",
-    config = function()
-      require("satellite").setup()
-    end,
-  },
-
-  -- Flash cursor when jumping
-  {
-    "edluffy/specs.nvim",
-    config = function()
-      require("specs").setup({
-        popup = {
-          inc_ms = 7, -- time increments used for fade/resize effects
-          width = 30,
-          winhl = "PmenuSel",
-        },
-      })
-    end,
+    opts = {},
   },
 
   -- Fancy dashboard
@@ -446,9 +381,7 @@ return {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = "BufReadPost",
-    config = function()
-      require("plugins.todo-comments")
-    end,
+    opts = {},
   },
 
   -- Manage and display key bindings
