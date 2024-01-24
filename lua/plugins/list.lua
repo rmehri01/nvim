@@ -307,9 +307,8 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPre",
-    opts = {
-      show_current_context = true,
-    },
+    main = "ibl",
+    opts = {},
   },
 
   -- Peek lines of a buffer
