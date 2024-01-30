@@ -8,7 +8,6 @@ return {
   -- Smart commenting
   {
     "numToStr/Comment.nvim",
-    keys = { "gc", "gb" },
     opts = {},
   },
 
@@ -151,11 +150,9 @@ return {
 
   -- Extra tools for Rust
   {
-    "simrat39/rust-tools.nvim",
-    ft = { "rust", "rs" },
-    config = function()
-      require("plugins.rust-tools")
-    end,
+    "mrcjkb/rustaceanvim",
+    version = "^4",
+    ft = { "rust" },
   },
 
   -- Allows non-LSP sources to use the LSP client

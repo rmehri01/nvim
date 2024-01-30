@@ -3,7 +3,7 @@ local on_attach = require("plugins.utils").on_attach
 local capabilities = require("plugins.utils").capabilities
 
 -- Enable the following language servers
-local servers = { "clangd", "hls", "pyright", "erlangls", "gopls", "tsserver" }
+local servers = { "clangd", "hls", "pyright", "gopls", "tsserver", "jsonls" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
