@@ -3,9 +3,8 @@ vim.keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Remove highlight after searching
+vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
 
 -- Window movement
 vim.keymap.set("n", "<C-h>", "<C-w>h")
@@ -26,12 +25,21 @@ vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<CR>")
 -- nvim-tree
 vim.keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<cr>")
 
--- Remove highlight after searching
-vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
+-- gitlinker
+vim.keymap.set(
+  { "n", "v" },
+  "<leader>gl",
+  "<cmd>GitLink!<cr>",
+  { silent = true, noremap = true, desc = "Open git permalink in browser" }
+)
 
 -- LSP mappings
-vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
+vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
+vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
+vim.keymap.set("v", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
 vim.keymap.set("n", "K", function()
   if vim.fn.expand("%:t") == "Cargo.toml" then
     require("crates").show_popup()
@@ -39,6 +47,3 @@ vim.keymap.set("n", "K", function()
     vim.lsp.buf.hover()
   end
 end)
-vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
-vim.keymap.set("n", "gr", vim.lsp.buf.references)
-vim.keymap.set("v", "<leader>ca", vim.lsp.buf.code_action)

@@ -3,34 +3,7 @@ require("luasnip.loaders.from_vscode").lazy_load()
 local luasnip = require("luasnip")
 
 -- nvim-cmp setup
-local icons = {
-  Text = "",
-  Method = "",
-  Function = "",
-  Constructor = "",
-  Field = "ﰠ",
-  Variable = "",
-  Class = "ﴯ",
-  Interface = "",
-  Module = "",
-  Property = "ﰠ",
-  Unit = "塞",
-  Value = "",
-  Enum = "",
-  Keyword = "",
-  Snippet = "",
-  Color = "",
-  File = "",
-  Reference = "",
-  Folder = "",
-  EnumMember = "",
-  Constant = "",
-  Struct = "פּ",
-  Event = "",
-  Operator = "",
-  TypeParameter = "",
-}
-
+local lspkind = require("lspkind")
 local cmp = require("cmp")
 cmp.setup({
   snippet = {
@@ -39,18 +12,12 @@ cmp.setup({
     end,
   },
   formatting = {
-    format = function(entry, vim_item)
-      vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
-      vim_item.menu = ({
-        buffer = "[Buffer]",
-        nvim_lsp = "[LSP]",
-        luasnip = "[LuaSnip]",
-        nvim_lua = "[Lua]",
-        latex_symbols = "[LaTeX]",
-      })[entry.source.name]
-
-      return vim_item
-    end,
+    format = lspkind.cmp_format({
+      mode = "symbol_text",
+      maxwidth = 50,
+      ellipsis_char = "...",
+      show_labelDetails = true,
+    }),
   },
   mapping = cmp.mapping.preset.insert({
     ["<C-u>"] = cmp.mapping.scroll_docs(-4),

@@ -11,6 +11,7 @@ wk.setup({
   },
 })
 
+local gitsigns = require("gitsigns")
 wk.register({
   ["<leader>"] = { "<cmd>Telescope find_files<CR>", "Find file" },
   ["."] = { "<cmd>Telescope file_browser<CR>", "Browse files" },
@@ -34,14 +35,14 @@ wk.register({
   p = { "<cmd>Lazy<cr>", "Lazy" },
   g = {
     name = "Git",
-    j = { require("gitsigns").next_hunk, "Next hunk" },
-    k = { require("gitsigns").prev_hunk, "Prev hunk" },
-    l = { require("gitsigns").blame_line, "Blame" },
-    p = { require("gitsigns").preview_hunk, "Preview hunk" },
-    r = { require("gitsigns").reset_hunk, "Reset hunk" },
-    R = { require("gitsigns").reset_buffer, "Reset buffer" },
-    s = { require("gitsigns").stage_hunk, "Stage hunk" },
-    u = { require("gitsigns").undo_stage_hunk, "Undo staged hunk" },
+    j = { gitsigns.next_hunk, "Next hunk" },
+    k = { gitsigns.prev_hunk, "Prev hunk" },
+    L = { gitsigns.blame_line, "Blame" },
+    p = { gitsigns.preview_hunk, "Preview hunk" },
+    r = { gitsigns.reset_hunk, "Reset hunk" },
+    R = { gitsigns.reset_buffer, "Reset buffer" },
+    s = { gitsigns.stage_hunk, "Stage hunk" },
+    u = { gitsigns.undo_stage_hunk, "Undo staged hunk" },
     o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
@@ -63,7 +64,6 @@ wk.register({
     k = { vim.diagnostic.goto_prev, "Prev diagnostic" },
     l = { vim.lsp.codelens.run, "Codelens action" },
     r = { vim.lsp.buf.rename, "Rename" },
-    D = { vim.lsp.buf.type_definition, "Type definition" },
   },
   s = {
     name = "Search",
@@ -74,10 +74,12 @@ wk.register({
     m = { "<cmd>Telescope man_pages<cr>", "Man pages" },
     r = { "<cmd>Telescope oldfiles<cr>", "Recent file" },
     t = { "<cmd>Telescope live_grep<cr>", "Text" },
-    s = { "<cmd>Telescope grep_string<cr>", "String under cursor" },
+    ["*"] = { "<cmd>Telescope grep_string<cr>", "String under cursor" },
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },
     H = { "<cmd>Telescope highlights<cr>", "Highlights" },
+    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Highlights" },
+    S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Highlights" },
   },
   t = {
     name = "Trouble",
@@ -93,7 +95,7 @@ wk.register({
   T = {
     name = "Treesitter",
     i = { ":TSConfigInfo<cr>", "Info" },
-    s = { vim.treesitter.show_tree, "Show Tree" },
+    s = { vim.treesitter.inspect_tree, "Show Tree" },
     g = { "<cmd>Neogen<cr>", "Neogen" },
   },
 }, {

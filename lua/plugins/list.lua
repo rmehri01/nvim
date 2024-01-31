@@ -39,19 +39,6 @@ return {
     },
   },
 
-  -- Manage terminal windows
-  {
-    "akinsho/toggleterm.nvim",
-    keys = "<C-t>",
-    opts = {
-      open_mapping = "<C-t>",
-      direction = "float",
-      float_opts = {
-        border = "curved",
-      },
-    },
-  },
-
   -- File explorer tree
   {
     "kyazdani42/nvim-tree.lua",
@@ -116,7 +103,9 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-context",
     event = "BufReadPre",
-    opts = {},
+    opts = {
+      max_lines = 6,
+    },
   },
 
   -- Outline window
@@ -124,6 +113,13 @@ return {
     "stevearc/aerial.nvim",
     cmd = "AerialToggle",
     opts = {},
+  },
+
+  -- More text objects
+  {
+    "chrisgrieser/nvim-various-textobjs",
+    lazy = false,
+    opts = { useDefaultKeymaps = true },
   },
 
   -- LSP -----------------------------------------------------------------------
@@ -155,16 +151,20 @@ return {
     ft = { "rust" },
   },
 
-  -- Allows non-LSP sources to use the LSP client
+  -- Formatting plugin
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "BufReadPre",
-    config = function()
-      require("null-ls").setup({
-        sources = {
-          require("null-ls").builtins.formatting.stylua,
-        },
-      })
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        javascript = { { "prettierd", "prettier" } },
+      },
+      format_on_save = { timeout_ms = 500, lsp_fallback = true },
+    },
+    init = function()
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
   },
 
@@ -174,6 +174,9 @@ return {
     cmd = { "TroubleToggle", "Trouble" },
     opts = {},
   },
+
+  -- Pictograms for lsp completion items
+  { "onsails/lspkind.nvim" },
 
   -- Autocompletion ------------------------------------------------------------
 
@@ -236,6 +239,12 @@ return {
         relative_time = true,
       },
     },
+  },
+
+  -- Generate links to GitHub
+  {
+    "linrongbin16/gitlinker.nvim",
+    opts = {},
   },
 
   -- UI Improvements -----------------------------------------------------------
@@ -337,25 +346,9 @@ return {
         command_palette = true,
         lsp_doc_border = true,
       },
-      routes = {
-        {
-          view = "notify",
-          filter = { event = "msg_showmode" },
-        },
-      },
     },
   },
   { "MunifTanjim/nui.nvim", lazy = true },
-  {
-    "rcarriga/nvim-notify",
-    lazy = true,
-    opts = {
-      fps = 30,
-      stages = "fade_in_slide_out",
-      timeout = 500,
-      top_down = true,
-    },
-  },
 
   -- Scrollbar with diagnostics
   {
@@ -398,5 +391,17 @@ return {
       })
       require("lsp_lines").setup()
     end,
+  },
+
+  -- Winbar context menu
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {},
   },
 }
