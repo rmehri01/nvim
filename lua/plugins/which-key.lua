@@ -52,6 +52,7 @@ wk.register({
       name = "Diffview",
       d = { "<cmd>DiffviewOpen<cr>", "Open" },
       c = { "<cmd>DiffviewClose<cr>", "Close" },
+      h = { "<cmd>DiffviewFileHistory<cr>", "File history" },
     },
   },
   c = {
