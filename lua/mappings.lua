@@ -37,8 +37,9 @@ vim.keymap.set(
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
 vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
+vim.keymap.set("n", "gi", "<cmd>Glance implementations<cr>", { desc = "Go to implementations" })
+vim.keymap.set("n", "gr", "<cmd>Glance references<cr>", { desc = "Go to references" })
+vim.keymap.set("n", "gY", "<cmd>Glance type_definitions<cr>", { desc = "Show type definitions" })
 vim.keymap.set("v", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
 vim.keymap.set("n", "K", function()
   if vim.fn.expand("%:t") == "Cargo.toml" then

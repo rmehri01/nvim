@@ -14,6 +14,7 @@ return {
     "python",
     "regex",
     "rust",
+    "make",
     "markdown",
     "markdown_inline",
     "toml",

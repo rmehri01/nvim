@@ -112,7 +112,9 @@ return {
   {
     "stevearc/aerial.nvim",
     cmd = "AerialToggle",
-    opts = {},
+    opts = {
+      show_guides = true,
+    },
   },
 
   -- More text objects
@@ -277,6 +279,13 @@ return {
     "nvim-lualine/lualine.nvim",
     opts = {
       sections = {
+        lualine_a = {
+          {
+            "searchcount",
+            maxcount = 999,
+            timeout = 500,
+          },
+        },
         lualine_c = {
           {
             "filename",
@@ -346,9 +355,21 @@ return {
         command_palette = true,
         lsp_doc_border = true,
       },
+      routes = {
+        {
+          view = "notify",
+          filter = { event = "msg_showmode" },
+        },
+      },
     },
   },
   { "MunifTanjim/nui.nvim", lazy = true },
+
+  -- Nicer references window
+  {
+    "dnlhc/glance.nvim",
+    opts = {},
+  },
 
   -- Scrollbar with diagnostics
   {
