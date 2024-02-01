@@ -20,6 +20,10 @@ function utils.on_attach(client, bufnr)
       callback = vim.lsp.buf.clear_references,
     })
   end
+
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(bufnr, true)
+  end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

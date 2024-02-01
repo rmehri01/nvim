@@ -146,13 +146,6 @@ return {
     end,
   },
 
-  -- Extra tools for Rust
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^4",
-    ft = { "rust" },
-  },
-
   -- Formatting plugin
   {
     "stevearc/conform.nvim",
